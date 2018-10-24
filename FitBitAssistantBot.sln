@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitBitAssistantBot", "FitBitAssistantBot\FitBitAssistantBot.csproj", "{56D03F42-EEE1-48C1-8D31-DED6B84CC5FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56D03F42-EEE1-48C1-8D31-DED6B84CC5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D03F42-EEE1-48C1-8D31-DED6B84CC5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D03F42-EEE1-48C1-8D31-DED6B84CC5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D03F42-EEE1-48C1-8D31-DED6B84CC5FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69743C62-4B09-492E-881C-3063D60E0FAA}
+	EndGlobalSection
+EndGlobal
