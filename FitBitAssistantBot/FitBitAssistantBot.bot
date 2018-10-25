@@ -1,16 +1,24 @@
 {
   "name": "FitBitAssistantBot",
-  
-  "version": "2.1",
+  "description": "",
   "services": [
-
     {
-      "appId": "",
-      "appPassword": "",
-      "endpoint": "http://localhost:3978/api/messages",
       "type": "endpoint",
       "name": "development",
-      "id": "3"
+      "endpoint": "http://localhost:3978/api/messages",
+      "appId": "e8b7dea8-709d-4c83-a847-f891681d3569",
+      "appPassword": "y+KQBqKj7XGC9rmRW3o6Ug==!X4IM/Y75xZoH1rgRpVLusmj/Fq6BkY9mqUMq84FqbK0=",
+      "id": "16"
+    },
+    {
+      "type": "endpoint",
+      "name": "production",
+      "appId": "e8b7dea8-709d-4c83-a847-f891681d3569",
+      "appPassword": "pzJYuFtSf9NG+a3H0OM4/Q==!Yo8C3a02qfkM1+ntkyplmB7ljEkbb/HZK0jWSB2/ZBY=",
+      "endpoint": "https://fitbitassistantbot.azurewebsites.net/api/messages",
+      "id": "215"
     }
-  ]
+  ],
+  "padlock": "hcvx8FD589O0oMu3ypsGBg==!to5XlLRcHTKYxP1g8vzURwKt0Mu8upN5TriCVB6NHQt55a/3clbYKsqlZeCTbsjE",
+  "version": "2.0"
 }

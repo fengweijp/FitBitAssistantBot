@@ -1,0 +1,51 @@
+﻿{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "User Profile"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "Image",
+          "url": "{0}"
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "separator": true,
+      "facts": [
+        {
+          "title": "Name",
+          "value": "{1}"
+        },
+        {
+          "title": "Gender",
+          "value": "{2}"
+        },
+        {
+          "title": "Height",
+          "value": "{3}"
+        },
+        {
+          "title": "Age",
+          "value": "{4}"
+        },
+
+        {
+          "title": "Date of Birth",
+          "value": "{5}"
+        },
+        {
+          "title": "Member Since",
+          "value": "{6}"
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

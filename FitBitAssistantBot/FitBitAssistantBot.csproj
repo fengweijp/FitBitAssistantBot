@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Resources\Images\BotPic.png" />
+    <Content Remove="wwwroot\Resources\Images\BrokenBot.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="*.bot">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -21,6 +26,24 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Resources\Images\BotPic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Resources\Images\BrokenBot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Images\BotPic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Images\BrokenBot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
