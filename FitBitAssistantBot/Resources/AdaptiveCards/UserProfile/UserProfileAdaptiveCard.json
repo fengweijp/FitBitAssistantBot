@@ -1,0 +1,91 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "horizontalAlignment": "Left",
+                    "size": "Medium",
+                    "weight": "Bolder",
+                    "color": "Accent",
+                    "text": "User Profile"
+                },
+                {
+                    "type": "ColumnSet",
+                    "horizontalAlignment": "Left",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "horizontalAlignment": "Left",
+                                    "style": "Person",
+                                    "url": "{urlKey}",
+                                    "size": "Medium"
+                                }
+                            ],
+                            "width": "auto"
+                        },
+                        {
+                            "type": "Column",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "color": "Good",
+                                    "text": "{userNameKey}"
+                                },
+                                {
+                                    "type": "FactSet",
+                                    "facts": [
+                                        {
+                                            "title": "Member Since:",
+                                            "value": "{memberSinceKey}"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "width": "auto"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "horizontalAlignment": "Left",
+                    "color": "Good",
+                    "text": "More About You"
+                }
+            ]
+        },
+        {
+            "type": "FactSet",
+            "facts": [
+                {
+                    "title": "Date Of Birth:",
+                    "value": "{dateOfBirthKey}"
+                },
+                {
+                    "title": "Age:",
+                    "value": "{ageKey}"
+                },
+                {
+                    "title": "Gender:",
+                    "value": "{genderKey}"
+                },
+                {
+                    "title": "Height:",
+                    "value": "{heightKey}"
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.0"
+}

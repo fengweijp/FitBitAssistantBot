@@ -27,7 +27,6 @@ namespace FitBitAssistantBot
 
             _dialogs = new DialogSet(_accessors.ConversationDialogState);
             _dialogs.Add(DialogHelpers.OAuthPrompt(Constants.ConnectionName));
-//            _dialogs.Add(new ChoicePrompt("choicePrompt"));
             _dialogs.Add(new WaterfallDialog(Constants.RootDialogName, new WaterfallStep[] { PromptStepAsync, ProcessStepAsync }));
 
 
@@ -70,7 +69,10 @@ namespace FitBitAssistantBot
         {
             var dc = await _dialogs.CreateContextAsync(turnContext, cancellationToken);
 
-            switch (turnContext.Activity.Text.ToLowerInvariant())
+            string command = turnContext.Activity.Text.ToLowerInvariant();
+            command = GenericHelpers.ParseCommand(command);
+
+            switch (command)
             {
                 case "signout":
                 case "logout":
@@ -82,10 +84,10 @@ namespace FitBitAssistantBot
                     await botAdapter.SignOutUserAsync(turnContext, Constants.ConnectionName, cancellationToken: cancellationToken);
 
                     // Let the user know they are signed out.
-                    await turnContext.SendActivityAsync("You are now signed out. Please close the chat window", cancellationToken: cancellationToken);
-                    
-
+                    await turnContext.SendActivityAsync("You are now signed out. Please close the chat window or type in anything to begin again", cancellationToken: cancellationToken);
+                    await dc.EndDialogAsync(Constants.RootDialogName, cancellationToken);
                     break;
+
                 case "help":
 
                     var reply = turnContext.Activity.CreateReply();
@@ -94,8 +96,20 @@ namespace FitBitAssistantBot
                         DialogHelpers.CreateBotHelpHeroCard().ToAttachment()
                     };
                     await turnContext.SendActivityAsync(reply, cancellationToken: cancellationToken);
-                    await dc.EndDialogAsync(Constants.RootDialogName, cancellationToken);
+                    
                     break;
+
+                //case "magiccode":
+
+                //    var functionReply = turnContext.Activity.CreateReply();
+                //    functionReply.Attachments = new List<Attachment>()
+                //    {
+                //        DialogHelpers.CreateBotHelpHeroCard().ToAttachment()
+                //    };
+                //    await turnContext.SendActivityAsync(functionReply);
+                    
+                //    break;
+
 
                 default:
                     await dc.ContinueDialogAsync(cancellationToken);
@@ -144,16 +158,44 @@ namespace FitBitAssistantBot
                         var reply = step.Context.Activity.CreateReply();
                         reply.Attachments = new List<Attachment>()
                         {
-                             DialogHelpers.CreateUserProfileAdaptiveCard(userProfile)
+                             DialogHelpers.CreateUserProfileAdaptiveCard(userProfile),
+                             DialogHelpers.CreateBotFunctionsHeroCard("What would you like to do next? Select one").ToAttachment()
                         };
 
                         await step.Context.SendActivityAsync(reply, cancellationToken);
 
+
+                    }
+                    else if(command == "mybadges")
+                    {
+                        FitBitApiHelper fitBitApiHelper = new FitBitApiHelper(tokenResponse.Token);
+                        UserBadges userBadges = await fitBitApiHelper.GetUserBadgesAsync();
+                        var reply = step.Context.Activity.CreateReply();
+                        reply.Attachments = new List<Attachment>()
+                        {
+                             DialogHelpers.CreateUserBadgesCard(userBadges),
+                             DialogHelpers.CreateBotFunctionsHeroCard("What would you like to do next? Select one").ToAttachment()
+                        };
+
+                        await step.Context.SendActivityAsync(reply, cancellationToken);
+
+
                     }
                     else
                     {
-                        await step.Context.SendActivityAsync($"Your token is: {tokenResponse.Token}", cancellationToken: cancellationToken);
+                        var reply = step.Context.Activity.CreateReply();
+                        reply.Attachments = new List<Attachment>()
+                        {
+                            DialogHelpers.CreateBotFunctionsHeroCard("This is what I can do for you.").ToAttachment()
+                        };
+
+                        await step.Context.SendActivityAsync(reply, cancellationToken);
                     }
+
+                    //else
+                    //{
+                    //    await step.Context.SendActivityAsync($"Your token is: {tokenResponse.Token}", cancellationToken: cancellationToken);
+                    //}
 
                    
                 }

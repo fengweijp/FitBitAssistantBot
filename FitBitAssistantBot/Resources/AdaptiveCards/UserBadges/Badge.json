@@ -1,0 +1,60 @@
+﻿{
+  "type": "Container",
+  "items": [
+    {
+      "type": "ColumnSet",
+      "horizontalAlignment": "Left",
+      "columns": [
+        {
+          "type": "Column",
+          "horizontalAlignment": "Left",
+          "items": [
+            {
+              "type": "Image",
+              "horizontalAlignment": "Left",
+              "url": "{badgeImage}"
+            }
+          ],
+          "width": "auto"
+        },
+        {
+          "type": "Column",
+          "horizontalAlignment": "Left",
+          "items": [
+            {
+              "type": "TextBlock",
+              "horizontalAlignment": "Left",
+              "weight": "Bolder",
+              "color": "Accent",
+              "text": "{badgeName}"
+            },
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Badge Type:",
+                  "value": "{badgeType}"
+                },
+                {
+                  "title": "Earned On:",
+                  "value": "{earnedOn}"
+                },
+                {
+                  "title": "Times Achieved:",
+                  "value": "{timesAchieved}"
+                }
+              ]
+            },
+            {
+              "type": "TextBlock",
+              "horizontalAlignment": "Left",
+              "text": "{earnedMessage}",
+              "wrap": true
+            }
+          ],
+          "width": "auto"
+        }
+      ]
+    }
+  ]
+}

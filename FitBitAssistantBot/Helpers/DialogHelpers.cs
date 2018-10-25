@@ -12,6 +12,7 @@ namespace FitBitAssistantBot
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using Newtonsoft.Json.Linq;
+    using System.Text;
     #endregion
 
     public static class DialogHelpers
@@ -25,6 +26,7 @@ namespace FitBitAssistantBot
                 {
                     new CardAction(ActionTypes.ImBack, "LogIn", text:"LogIn", displayText: "LogIn", value: "LogIn"),
                     new CardAction(ActionTypes.ImBack, "MyProfile", text:"MyProfile", displayText: "MyProfile", value: "MyProfile"),
+                    new CardAction(ActionTypes.ImBack, "MyBadges", text:"MyBadges", displayText: "MyBadges", value: "MyBadges"),
                     new CardAction(ActionTypes.ImBack, "Help", text: "Help", displayText: "Help", value:"Help"),
                     new CardAction(ActionTypes.ImBack, "LogOut", text: "LogOut", displayText: "LogOut", value: "LogOut")
                 },
@@ -32,7 +34,7 @@ namespace FitBitAssistantBot
                 {
                     new CardImage()
                     {
-                        Url = string.Format(Constants.CardImageUrl,GenericHelpers.ConvertImageToBase64String(@".\Images\BotPic.png"))
+                        Url = string.Format(Constants.CardImageUrl,GenericHelpers.ConvertResourceToBase64String(@".\Resources\Images\BotPic.png"))
                     }
                 }
 
@@ -42,6 +44,34 @@ namespace FitBitAssistantBot
             return heroCard;
             
         }
+
+        /// <summary>
+        /// Creates a Hero Card Detailing the functions that the Bot can perfom
+        /// </summary>
+        /// <param name="cardHeading">Heading To Be sent to the card</param>
+        /// <returns></returns>
+        public static HeroCard CreateBotFunctionsHeroCard(string cardHeading)
+        {
+            var heroCard = new HeroCard(cardHeading, "FitBtAssistantBot")
+            {
+                Buttons = new List<CardAction>
+                {
+                    
+                    new CardAction(ActionTypes.ImBack, "MyProfile", text:"MyProfile", displayText: "MyProfile", value: "MyProfile"),
+                    new CardAction(ActionTypes.ImBack, "MyBadges", text:"MyBadges", displayText: "MyBadges", value: "MyBadges"),
+                    new CardAction(ActionTypes.ImBack, "Help", text:"Help", displayText: "Click for Help", value: "Help")
+
+
+
+                },
+                
+            };
+
+            return heroCard;
+
+        }
+
+
         public static HeroCard CreateBotHelpHeroCard()
         {
             var heroCard = new HeroCard($"Click on any one to begin", "FitBtAssistantBot")
@@ -50,6 +80,7 @@ namespace FitBitAssistantBot
                 {
                     
                     new CardAction(ActionTypes.ImBack, "MyProfile", text:"MyProfile", displayText: "MyProfile", value: "MyProfile"),
+                    new CardAction(ActionTypes.ImBack, "MyBadges", text:"MyBadges", displayText: "MyBadges", value: "MyBadges"),
                     new CardAction(ActionTypes.ImBack, "LogOut", text: "LogOut", displayText: "LogOut", value: "LogOut")
                 }
                
@@ -61,14 +92,14 @@ namespace FitBitAssistantBot
         }
         public static HeroCard CreateErrorHeroCard()
         {
-            var heroCard = new HeroCard($"Sorry, seems I have run into an issue. Please close the chat and try again", "FitBitAssistantBot")
+            var heroCard = new HeroCard($"Sorry, I have run into an issue. Please close the chat and try again", "FitBitAssistantBot")
             {
                 Images = new List<CardImage>()
                 {
                     new CardImage ()
                     {
                         //Reading Error Image from Local folders in solutiom
-                        Url = string.Format(Constants.CardImageUrl,GenericHelpers.ConvertImageToBase64String(@".\Images\BrokenBot.png"))
+                        Url = string.Format(Constants.CardImageUrl,GenericHelpers.ConvertResourceToBase64String(@".\Resources\Images\BrokenBot.png"))
                     }
                 }
             };
@@ -81,7 +112,7 @@ namespace FitBitAssistantBot
         {
             
 
-            string jsonAdaptiveCard = File.ReadAllText(@".\REsources\AdaptiveCards\UserProfileAdaptiveCard.json");
+            string jsonAdaptiveCard = File.ReadAllText(@".\Resources\AdaptiveCards\UserProfile\UserProfileAdaptiveCard.json");
             string fullName = userProfile.user.fullName;
             string age = userProfile.user.age.ToString();
             DateTime tempDateOfBirth = DateTime.ParseExact(userProfile.user.dateOfBirth, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
@@ -93,13 +124,13 @@ namespace FitBitAssistantBot
 
             Dictionary<string, string> replaceMap = new Dictionary<string, string>()
             {
-                { "{0}", userProfile.user.avatar },
-                { "{1}", fullName},
-                { "{2}", gender},
-                { "{3}", height},
-                { "{4}", age},
-                { "{5}", dateOfBirth},
-                { "{6}", memberSince }
+                { "{urlKey}", userProfile.user.avatar },
+                { "{userNameKey}", fullName},
+                { "{genderKey}", gender},
+                { "{heightKey}", height},
+                { "{ageKey}", age},
+                { "{dateOfBirthKey}", dateOfBirth},
+                { "{memberSinceKey}", memberSince }
             };
 
             foreach (var entry in replaceMap)
@@ -117,6 +148,52 @@ namespace FitBitAssistantBot
             return adaptiveCardAttachment;
 
         }
+
+        public static Attachment CreateUserBadgesCard(UserBadges userBadges)
+        {
+            List<Dictionary<string, string>> dictlist = new List<Dictionary<string, string>>();
+
+            string  badgeJsonSchema = File.ReadAllText(@".\Resources\AdaptiveCards\UserBadges\Badge.json");
+            string badgeAdaptiveCardJsonSchema = File.ReadAllText(@".\Resources\AdaptiveCards\UserBadges\UserBadgesAdapativeCard.json");
+
+            foreach (var badge in userBadges.badges)
+            {
+                Dictionary<string, string> dict = new Dictionary<string, string>()
+                {
+                    { "{badgeImage}", badge.image100px},
+                    { "{badgeName}", badge.name},
+                    { "{badgeType}", badge.category },
+                    { "{earnedOn}", DateTime.ParseExact(badge.dateTime, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture).ToString("dd MMM, yyyy")},
+                    { "{earnedMessage}", badge.marketingDescription},
+                    { "{timesAchieved}", Convert.ToString(badge.timesAchieved)}
+                };
+                dictlist.Add(dict);
+            }
+
+            StringBuilder builder = new StringBuilder();
+            
+            foreach (var dict in dictlist)
+            {
+                string temp = badgeJsonSchema;
+                foreach (var pair in dict)
+                {
+                    temp = temp.Replace(pair.Key, pair.Value);
+                }
+                builder.Append(temp);
+                builder.Append(",");
+            }
+
+            badgeAdaptiveCardJsonSchema = badgeAdaptiveCardJsonSchema.Replace("\"{badges}\"", builder.ToString());
+
+            var adaptiveCardAttachment = new Attachment()
+            {
+                ContentType = "application/vnd.microsoft.card.adaptive",
+                Content = JsonConvert.DeserializeObject(badgeAdaptiveCardJsonSchema),
+            };
+            return adaptiveCardAttachment;
+            
+        }
+
 
         public static OAuthCard CreateOuathCard(string connectionName, string userName)
         {

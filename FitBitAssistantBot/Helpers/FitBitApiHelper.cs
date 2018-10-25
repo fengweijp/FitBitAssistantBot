@@ -11,6 +11,10 @@ namespace FitBitAssistantBot
 
     #endregion
 
+
+    /// <summary>
+    /// Helper Class To Consume FitBit Web Api
+    /// </summary>
     public class FitBitApiHelper
     {
         private readonly string _token;
@@ -24,28 +28,55 @@ namespace FitBitAssistantBot
             _token = token;
         }
 
+        /// <summary>
+        /// Get the User Data
+        /// </summary>
+        /// <returns>UserProfile Object</returns>
         public async Task<UserProfile> GetUserProfileAsync()
+        {
+
+            string jsonResponse = await GetFitBitDataAsync(Constants.UserProfileUrl);
+            UserProfile userProfile = JsonConvert.DeserializeObject<UserProfile>(jsonResponse);
+            return userProfile;
+            
+        }
+
+        /// <summary>
+        /// Get the User Badges
+        /// </summary>
+        /// <returns>UserBadges Object</returns>
+        public async Task<UserBadges> GetUserBadgesAsync()
+        {
+            string jsonResponse = await GetFitBitDataAsync(Constants.UserBadges);
+            UserBadges userBadges = JsonConvert.DeserializeObject<UserBadges>(jsonResponse);
+            return userBadges;
+        }
+
+        /// <summary>
+        /// Get Data From FitBitAPi
+        /// </summary>
+        /// <param name="url">url to get the data from</param>
+        /// <returns></returns>
+        private async Task<string> GetFitBitDataAsync(string url)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", GenericHelpers.GetAuzthorizationToken(_token));
 
-            using ( var response = await client.GetAsync(Constants.UserProfileUrl))
+            using (var response = await client.GetAsync(url))
             {
-                if(!response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
                     throw new HttpRequestException($"Fitbitapi returned invalid success code: {response.StatusCode}");
                 }
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                UserProfile userProfile = JsonConvert.DeserializeObject<UserProfile>(jsonResponse);
 
-                return userProfile;
+                return jsonResponse;
 
-                
             }
+
+
         }
-
-
 
 
     }

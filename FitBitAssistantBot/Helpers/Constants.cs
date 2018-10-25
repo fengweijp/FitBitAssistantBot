@@ -26,7 +26,8 @@ namespace FitBitAssistantBot
             LogIn,
             MyProfile,
             Help,
-            LogOut
+            LogOut,
+            MagicCode
         }
 
         #endregion
