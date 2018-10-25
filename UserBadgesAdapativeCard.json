@@ -1,0 +1,123 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "horizontalAlignment": "Left",
+                    "weight": "Bolder",
+                    "color": "Accent",
+                    "text": "Your Badges\n"
+                },
+                {
+                    "type": "Container",
+                    "horizontalAlignment": "Left",
+                    "items": [
+                        {
+                            "type": "ColumnSet",
+                            "horizontalAlignment": "Left",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "horizontalAlignment": "Left",
+                                    "items": [
+                                        {
+                                            "type": "Image",
+                                            "horizontalAlignment": "Left",
+                                            "style": "Person",
+                                            "url": "https://d6y8zfzc2qfsl.cloudfront.net/0DAAAEFC-2131-84AE-6D47-38E07144046E_profile_100_square.jpg",
+                                            "size": "Small"
+                                        }
+                                    ],
+                                    "width": "auto"
+                                },
+                                {
+                                    "type": "Column",
+                                    "horizontalAlignment": "Left",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "horizontalAlignment": "Left",
+                                            "color": "Good",
+                                            "text": "Mandar Dharmadhikari"
+                                        },
+                                        {
+                                            "type": "FactSet",
+                                            "facts": [
+                                                {
+                                                    "title": "Member Since:",
+                                                    "value": "30 Jun, 2018"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "width": "auto"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "horizontalAlignment": "Left",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "horizontalAlignment": "Left",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "horizontalAlignment": "Left",
+                                    "url": "https://static0.fitbit.com/images/badges_new/100px/badge_daily_steps25k.png"
+                                }
+                            ],
+                            "width": "auto"
+                        },
+                        {
+                            "type": "Column",
+                            "horizontalAlignment": "Left",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "horizontalAlignment": "Left",
+                                    "weight": "Bolder",
+                                    "color": "Accent",
+                                    "text": "High Tops (20,000 steps in a day)"
+                                },
+                                {
+                                    "type": "FactSet",
+                                    "facts": [
+                                        {
+                                            "title": "Badge Type:",
+                                            "value": "Daily Steps"
+                                        },
+                                        {
+                                            "title": "Earned On:",
+                                            "value": "30 Jun, 2018"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "horizontalAlignment": "Left",
+                                    "text": "You've walked 20,000 steps  And earned the High Tops badge!",
+                                    "wrap": true
+                                }
+                            ],
+                            "width": "auto"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.0"
+}
