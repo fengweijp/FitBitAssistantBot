@@ -29,14 +29,14 @@ namespace FitBitAssistantBot
                     new CardAction(ActionTypes.ImBack, "MyBadges", text:"MyBadges", displayText: "MyBadges", value: "MyBadges"),
                     new CardAction(ActionTypes.ImBack, "Help", text: "Help", displayText: "Help", value:"Help"),
                     new CardAction(ActionTypes.ImBack, "LogOut", text: "LogOut", displayText: "LogOut", value: "LogOut")
-                },
-                Images = new List<CardImage>()
-                {
-                    new CardImage()
-                    {
-                        Url = string.Format(Constants.CardImageUrl,GenericHelpers.ConvertResourceToBase64String(@".\Resources\Images\BotPic.png"))
-                    }
                 }
+                //Images = new List<CardImage>()
+                //{
+                //    new CardImage()
+                //    {
+                //        Url = string.Format(Constants.CardImageUrl,GenericHelpers.ConvertResourceToBase64String(@".\Resources\Images\BotPic.png"))
+                //    }
+                //}
 
               
             };
